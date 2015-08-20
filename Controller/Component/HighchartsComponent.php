@@ -730,18 +730,19 @@ class HighchartsComponent extends Component {
                 }
                 
                 // Y axis plot bands
-                /* This yAxis plotBands property is not working. */                 
-                if (isset($params['yAxisPlotBands']['from'])) {
+                if (isset($params['yAxisPlotBands'])) {
                         $this->charts[$name]->yAxis->plotBands = new stdClass();
-                        $this->charts[$name]->yAxis->plotBands->from = $params['yAxisPlotBands']['from'];
-                }
-                if (isset($params['yAxisPlotBands']['to'])) {
-                        $this->charts[$name]->yAxis->plotBands = new stdClass();
-                        $this->charts[$name]->yAxis->plotBands->to = $params['yAxisPlotBands']['to'];
-                }
-                if (isset($params['yAxisPlotBands']['color'])) {
-                        $this->charts[$name]->yAxis->plotBands = new stdClass();
-                        $this->charts[$name]->yAxis->plotBands->color = $params['yAxisPlotBands']['color'];
+                        
+                        for ($x = 0; $x <= count($params['yAxisPlotBands']) -1; $x++){
+                            $plotBands[] = array(
+                                    'from' => $params['yAxisPlotBands'][$x]['from'],
+                                    'to' => $params['yAxisPlotBands'][$x]['to'], 
+                                    'color' => $params['yAxisPlotBands'][$x]['color']
+                                );
+                            
+                        }
+                        
+                        $this->charts[$name]->yAxis->plotBands = $plotBands;
                 }
 
                 // Y axis title options
